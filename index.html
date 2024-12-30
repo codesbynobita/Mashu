@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Birthday Candle</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            font-family: 'Arial', sans-serif;
+            overflow-y: auto;
+        }
+
+        .birthday-container {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .message {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .quote {
+            font-size: 1rem;
+            color: #fff7e6;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+            line-height: 1.4;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 1s ease-in-out 1s;
+        }
+
+        .candle-container {
+            position: relative;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite alternate;
+        }
+
+        .candle {
+            width: 20px;
+            height: 100px;
+            background: #ffcccb;
+            border-radius: 10px;
+            position: relative;
+            margin: 0 auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .candle:hover {
+            transform: scale(1.1);
+        }
+
+        .flame {
+            width: 20px;
+            height: 30px;
+            background: radial-gradient(circle, yellow 50%, orange 70%, transparent 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            left: 0;
+            animation: flicker 0.5s infinite alternate;
+        }
+
+        .wick {
+            width: 5px;
+            height: 15px;
+            background: black;
+            border-radius: 5px;
+            position: absolute;
+            top: -15px;
+            left: calc(50% - 2.5px);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .selection-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .date-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .quote-container {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .message-box {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .message-input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .send-button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .credit {
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+
+        .credit b {
+            font-weight: bold;
+        }
+
+        .instagram-link {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .instagram-link a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .instagram-link img {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes flicker {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-container">
+        <h1 class="message">🎉 Happy Birthday Mashu! 🎉</h1>
+        <p id="clickText" class="sub-message">Click the candle to blow it out!</p>
+
+        <div class="candle-container">
+            <div class="candle" onclick="blowOut()">
+                <div class="wick"></div>
+                <div class="flame" id="flame"></div>
+            </div>
+        </div>
+
+        <p class="quote" id="quote">
+            জন্মদিনের শুভেচ্ছা নেবে প্রিয় মাশু।তোমার ভোলাভালা হাসি নিত্যদিনের মতোই প্রাণবন্ত থাকুক আমার এই প্রার্থনা থাকবে।পৃথিবীর সমস্ত সুখ যদি এককভাবে কাউকে দেওয়া যেতো তবে অলস প্রেমাষ্পদ হিসেবে চাইতাম সে সুখ যেনো তোমার হয়।তোমাকে ভুলে যাওয়া মস্ত বড়ো কঠিন ব্যাপার আর নিতান্তই অলস তাই কঠিন কাজ করতে পারি না।যাহোক,সমৃদ্ধির পথে তোমার প্রতিদিন সূর্যোদয় হোক❤<br>
+            <span style="font-weight: bold;">- Nobita</span>
+        </p>
+
+        <div class="selection-container">
+            <p style="color: #000000">Will you remember me till the end?</p>
+            <button onclick="showDateSelection()">Yes</button>
+            <button>No</button>
+        </div>
+
+        <div class="date-container" id="dateContainer">
+            <p style="color: #000000">Hey,cutieeee!Select a date whenever you want to meet</p>
+            <input type="date" id="dateInput">
+        </div>
+
+        <div class="quote-container" id="quoteContainer">
+            <p style="color: #414A4C; font-weight: bold; text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);">
+                Hey, Mashu! Gift will be sent to you automatically,no matter how it will be sent,the matter is that I am the sender.The gift is not enough costly but I have tried to cover it with love<3
+            </p>
+        </div>
+
+        <div class="selection-container" id="messageSelectionContainer">
+            <p style="color: #414A4C; font-weight: bold">Have you any message for Nobita?</p>
+            <button onclick="showMessageBox()">Yes</button>
+            <button>No</button>
+        </div>
+
+        <div class="message-box" id="messageBox">
+            <textarea id="messageInput" class="message-input" placeholder="Write your message here..."></textarea>
+            <button class="send-button" onclick="sendMessage()">Send it to Nobita</button>
+        </div>
+
+        <div class="credit">
+            Coded by: <b>Nobita</b>
+        </div>
+        <div class="instagram-link">
+            <a href="https://instagram.com/anonymously_its_me_1" target="_blank">
+                
+                <img src="https://image.shutterstock.com/image-vector/instagram-icon-260nw-512958997.jpg" alt="Anonymous❤">
+            </a>
+        </div>
+    </div>
+
+    <audio id="blowSound" src="https://www.soundjay.com/button/beep-07.mp3"></audio>
+
+    <script>
+        function blowOut() {
+            const candle = document.querySelector('.candle-container');
+            const flame = document.getElementById('flame');
+            const blowSound = document.getElementById('blowSound');
+            const clickText = document.getElementById('clickText');
+            const quote = document.getElementById('quote');
+
+            flame.classList.add('hidden'); // Hides the flame
+            blowSound.play(); // Plays the sound effect
+            clickText.style.display = 'none'; // Hides the "Click the candle..." text
+            
+            setTimeout(() => {
+                candle.classList.add('hidden'); // Removes the candle
+                quote.style.display = 'block'; // Displays the quote
+                document.querySelector('.selection-container').style.display = 'block';
+            }, 1000); // 1 second delay
+        }
+
+        function showDateSelection() {
+            const dateContainer = document.getElementById('dateContainer');
+            dateContainer.style.display = 'block'; // Show date selection
+        }
+
+        document.getElementById('dateInput').addEventListener('change', function() {
+            const date = this.value;
+            const quoteContainer = document.getElementById('quoteContainer');
+            const messageSelectionContainer = document.getElementById('messageSelectionContainer');
+            quoteContainer.style.display = 'block'; // Display gift message
+            setTimeout(() => {
+                messageSelectionContainer.style.display = 'block'; // Show "Have any message?" selection
+            }, 2000); // 2-second delay
+        });
+
+        function showMessageBox() {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.style.display = 'block'; // Show the message box
+        }
+
+        function sendMessage() {
+            const message = document.getElementById('messageInput').value;
+            if (message.trim() !== '') {
+                alert(`Your message has been sent to Nobita: "${message}"`);
+                document.getElementById('messageInput').value = ''; // Clear the input box
+            } else {
+                alert('Please enter a message before sending.');
+            }
+        }
+    </script>
+</body>
+</html>
