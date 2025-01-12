@@ -1,262 +1,313 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ইনভয়েস জেনারেটর</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <title>Shahara Nest</title>
+    <!-- Font Awesome CDN for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            color: #333;
-            padding: 20px;
-        }
-        h1 {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2f3640; /* Charcoal dark background */
+            color: #dcdde1; /* Light gray text */
             text-align: center;
         }
-        .form-container {
-            background: #ffffff;
+
+        header {
+            background-color: #1e272e; /* Dark header */
+            color: white;
             padding: 20px;
+            border-bottom: 4px solid #e67e22; /* Copper accent */
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            margin: 5px 0;
+            color: #f5ab35;
+        }
+
+        marquee {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #9ABDDC;
+            margin-bottom: 10px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #2f3640;
             border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            width: 80%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            color: #e67e22;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #dcdde1;
+            text-align: left;
+            width: 50%;
             margin: 0 auto;
         }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 10px 0;
+
+        input, select, textarea {
+            width: 50%;
+            padding: 12px;
+            margin: 10px auto;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            display: block;
         }
+
         button {
-            background-color: #4CAF50;
+            background-color: #e67e22; /* Copper color for buttons */
             color: white;
-            padding: 10px 15px;
             border: none;
+            padding: 12px 20px;
             border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
+            display: inline-block;
+            margin: 5px;
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #d35400; /* Darker copper for hover */
         }
-        .invoice {
+
+        .agent-box, .form-box, .donate-box {
             display: none;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .owner-card, .credit-card {
+            padding: 15px;
+            margin: 15px auto;
+            border: 1px solid #e67e22; /* Copper border */
+            border-radius: 6px;
+            background-color: #1e272e;
             width: 80%;
-            margin: 20px auto;
+            text-align: left;
         }
-        .invoice h2 {
+
+        .owner-card h4, .credit-card h4 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #e67e22; /* Copper text */
+        }
+
+        .owner-card p, .credit-card p {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #dcdde1; /* Light gray text */
+        }
+
+        footer {
             text-align: center;
-            font-size: 1.5em;
-        }
-        .invoice-table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-        .invoice-table th, .invoice-table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
-        .qr-code {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .download-btn {
-            background-color: #e67e22;
+            padding: 15px;
+            background: #1e272e;
             color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
+            font-size: 0.9rem;
         }
-        .download-btn:hover {
-            background-color: #d35400;
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            font-size: 2rem;
+            color: #e67e22;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            color: #d35400;
+        }
+
+        /* Credit section */
+        .credit-card {
+            display: inline-block;
+            text-align: center;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Shahara Nest</h1>
+        <h2>Determined to help human being a human</h2>
+        <marquee>fghjgfdghjgfghjgfghjgfhjgfghjgfhjgfhj</marquee>
+    </header>
 
-<h1>ইনভয়েস জেনারেটর</h1>
+    <div class="container">
+        <!-- Help Section -->
+        <section id="help">
+            <h3>Do you need help by an agent?</h3>
+            <div class="button-container">
+                <button onclick="showAgentBox('yes')">Yes</button>
+                <button onclick="showAgentBox('no')">No</button>
+            </div>
 
-<div class="form-container">
-    <label for="customerName">গ্রাহকের নাম:</label>
-    <input type="text" id="customerName" placeholder="গ্রাহকের নাম" required>
+            <div class="agent-box" id="agent-box">
+                <h4>Available Agents</h4>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li><strong>Nahid:</strong> Call 01580878557</li>
+                    <li><strong>Mawaj:</strong> Call 01580878557</li>
+                    <li><strong>Jihad:</strong> Call 01580878557</li>
+                    <li><strong>Sowmitra:</strong> Call 01580878557</li>
+                </ul>
+            </div>
 
-    <label for="signatureText">স্বাক্ষর:</label>
-    <textarea id="signatureText" placeholder="স্বাক্ষরের জন্য এখানে লিখুন..." rows="4" required></textarea>
+            <div class="form-box" id="form-box">
+                <form id="helpForm" action="mailto:nahidpias3@gmail.com" method="post" enctype="text/plain">
+                    <div>
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div>
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone">
+                    </div>
+                    <div>
+                        <label for="helpType">Type of Help Needed</label>
+                        <select id="helpType" name="helpType">
+                            <option value="financial">Financial Assistance</option>
+                            <option value="medical">Medical Support</option>
+                            <option value="legal">Legal Aid</option>
+                            <option value="educational">Educational Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="details">Additional Details</label>
+                        <textarea id="details" name="details" rows="4"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
 
-    <div id="itemList">
-        <div class="item">
-            <label for="itemName">পণ্য নাম:</label>
-            <input type="text" class="itemName" placeholder="পণ্য নাম" required>
+        <!-- Donate Section -->
+        <section id="donate">
+            <h3>Want to donate us?</h3>
+            <div class="button-container">
+                <button onclick="showDonateOptions('bkash')">Bkash</button>
+                <button onclick="showDonateOptions('nagad')">Nagad</button>
+            </div>
 
-            <label for="quantity">পরিমাণ:</label>
-            <input type="number" class="quantity" placeholder="পরিমাণ" required>
+            <div class="donate-box" id="donate-box">
+                <p>Send your donation to: <strong>01580878557</strong></p>
+                <p>Please send a message to this number with the transaction number and amount.</p>
+            </div>
+        </section>
 
-            <label for="price">মূল্য (BDT):</label>
-            <input type="number" class="price" placeholder="মূল্য" required>
+        <!-- Owner Information Section -->
+        <section id="owner-info">
+            <h3>Owner Information</h3>
+            <div class="owner-card">
+                <h4>Nahid Al-Asad Pias</h4>
+                <p><strong>Position:</strong> Founder and CEO</p>
+                <p>"Leading with compassion and a vision to create a better tomorrow for everyone."</p>
+            </div>
+            <div class="owner-card">
+                <h4>Rokibul Islam Jihad</h4>
+                <p><strong>Position:</strong> Co-Founder and Cashier</p>
+                <p>"Ensuring financial transparency and operational excellence."</p>
+            </div>
+            <div class="owner-card">
+                <h4>Mawaj Islam Naim</h4>
+                <p><strong>Position:</strong> Chief Advisor (Agent)</p>
+                <p>"Bridging the gap between those in need and available resources."</p>
+            </div>
+            <div class="owner-card">
+                <h4>Sowmitra Talukder Dipra</h4>
+                <p><strong>Position:</strong> Chief Advisor (Management)</p>
+                <p>"Strategizing and managing with innovation and dedication."</p>
+            </div>
+        </section>
 
-            <button type="button" class="remove-item" onclick="removeItem(this)">মুছে ফেলুন</button>
-        </div>
+        <!-- Social Media Links Section -->
+        <section id="social-links">
+            <h3>Connect with Nahid Al-Asad Pias</h3>
+            <div class="social-links">
+                <a href="https://www.facebook.com/nahid.pias.11" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/piku" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.threads.net/p/nahid__pias" target="_blank" title="Threads"><i class="fab fa-thread"></i></a>
+            </div>
+        </section>
+
+        <!-- Credit Section -->
+        <section id="credit">
+            <div class="credit-card">
+                <h4>Website Developed By:</h4>
+                <p><strong>Team Shahara Nest</strong></p>
+                <p>We believe in a better tomorrow for all.</p>
+            </div>
+        </section>
     </div>
 
-    <button type="button" onclick="addItem()">আরও পণ্য যোগ করুন</button>
-    <button type="button" onclick="generateInvoice()">ইনভয়েস তৈরি করুন</button>
-</div>
+    <footer>
+        <p>&copy; 2025 Shahara Nest | All Rights Reserved</p>
+    </footer>
 
-<div class="invoice" id="invoice">
-    <h2>ইনভয়েস</h2>
-    <p id="invoiceCustomerName"></p>
-    <table class="invoice-table" id="invoiceTable"></table>
-    <p id="totalAmount"></p>
-    <p id="invoiceSignature"></p>
-
-    <div class="qr-code" id="qrcode"></div>
-
-    <button class="download-btn" id="downloadBtn" onclick="downloadPDF()">ইনভয়েস ডাউনলোড করুন</button>
-    <button class="download-btn" id="emailBtn" onclick="sendEmail()">ইমেইল প্রেরণ করুন</button>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-    let itemCount = 1;
-
-    function addItem() {
-        itemCount++;
-        const itemList = document.getElementById('itemList');
-        const newItem = document.createElement('div');
-        newItem.classList.add('item');
-        newItem.innerHTML = `
-            <label for="itemName">পণ্য নাম:</label>
-            <input type="text" class="itemName" placeholder="পণ্য নাম" required>
-
-            <label for="quantity">পরিমাণ:</label>
-            <input type="number" class="quantity" placeholder="পরিমাণ" required>
-
-            <label for="price">মূল্য (BDT):</label>
-            <input type="number" class="price" placeholder="মূল্য" required>
-
-            <button type="button" class="remove-item" onclick="removeItem(this)">মুছে ফেলুন</button>
-        `;
-        itemList.appendChild(newItem);
-    }
-
-    function removeItem(button) {
-        button.parentElement.remove();
-        itemCount--;
-    }
-
-    function generateInvoice() {
-        const customerName = document.getElementById('customerName').value;
-        const signatureText = document.getElementById('signatureText').value;
-
-        if (!customerName || !signatureText) {
-            alert("গ্রাহকের নাম এবং স্বাক্ষর প্রদান করুন");
-            return;
-        }
-
-        const items = [];
-        const itemNames = document.querySelectorAll('.itemName');
-        const quantities = document.querySelectorAll('.quantity');
-        const prices = document.querySelectorAll('.price');
-
-        let totalAmount = 0;
-
-        for (let i = 0; i < itemCount; i++) {
-            const itemName = itemNames[i].value;
-            const quantity = parseFloat(quantities[i].value);
-            const price = parseFloat(prices[i].value);
-
-            if (!itemName || isNaN(quantity) || isNaN(price)) {
-                alert("সব পণ্য পূর্ণ তথ্য দিন");
-                return;
+    <script>
+        function showAgentBox(option) {
+            var agentBox = document.getElementById('agent-box');
+            var formBox = document.getElementById('form-box');
+            if (option === 'yes') {
+                agentBox.style.display = 'block';
+                formBox.style.display = 'none';
+            } else if (option === 'no') {
+                agentBox.style.display = 'none';
+                formBox.style.display = 'block';
             }
-
-            const total = quantity * price;
-            totalAmount += total;
-
-            items.push({ itemName, quantity, price, total });
         }
 
-        const currentDate = new Date().toLocaleDateString('bn-BD');
-        const currentTime = new Date().toLocaleTimeString('bn-BD');
-
-        const invoiceHTML = `
-            <h2>ইনভয়েস</h2>
-            <p>গ্রাহকের নাম: <strong>${customerName}</strong></p>
-            <p>তারিখ: ${currentDate} ${currentTime}</p>
-            <table class="invoice-table">
-                <tr>
-                    <th>পণ্য</th>
-                    <th>পরিমাণ</th>
-                    <th>মূল্য (BDT)</th>
-                    <th>মোট (BDT)</th>
-                </tr>
-                ${items.map(item => `
-                    <tr>
-                        <td>${item.itemName}</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.price.toFixed(2)}</td>
-                        <td>${item.total.toFixed(2)}</td>
-                    </tr>
-                `).join('')}
-                <tr>
-                    <td colspan="3" style="text-align: right; font-weight: bold;">মোট:</td>
-                    <td>${totalAmount.toFixed(2)}</td>
-                </tr>
-            </table>
-            <p>${signatureText}</p>
-        `;
-
-        document.getElementById('invoice').style.display = 'block';
-        document.getElementById('invoiceCustomerName').innerHTML = `গ্রাহকের নাম: ${customerName}`;
-        document.getElementById('invoiceTable').innerHTML = invoiceHTML;
-        document.getElementById('totalAmount').innerHTML = `মোট: ${totalAmount.toFixed(2)} BDT`;
-        document.getElementById('invoiceSignature').innerHTML = `স্বাক্ষর: ${signatureText}`;
-
-        // Generate QR code
-        const invoiceData = JSON.stringify({ customerName, items, totalAmount, date: currentDate, time: currentTime });
-        new QRCode(document.getElementById("qrcode"), {
-            text: invoiceData,
-            width: 128,
-            height: 128,
-        });
-    }
-
-    function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const invoiceContent = document.getElementById('invoice').innerHTML;
-
-        doc.html(invoiceContent, {
-            callback: function (doc) {
-                doc.save('invoice.pdf');
-            },
-            x: 10,
-            y: 10
-        });
-    }
-
-    function sendEmail() {
-        const emailBody = document.getElementById('invoice').innerHTML;
-        const emailSubject = 'Invoice';
-        const mailtoLink = `mailto:nahidpias3@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        window.location.href = mailtoLink;
-    }
-</script>
-
+        function showDonateOptions(option) {
+            var donateBox = document.getElementById('donate-box');
+            donateBox.style.display = 'block';
+        }
+    </script>
 </body>
 </html>
