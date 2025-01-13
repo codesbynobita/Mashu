@@ -167,13 +167,40 @@
             text-align: center;
             margin-top: 30px;
         }
+
+        /* FAQ Styles */
+        .faq-section {
+            margin: 40px 0;
+        }
+
+        .faq {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1e272e;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .faq h4 {
+            color: #e67e22;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .faq p {
+            color: #dcdde1;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Shahara Nest</h1>
         <h2>Determined to help human being a human</h2>
-        <marquee>fghjgfdghjgfghjgfghjgfhjgfghjgfhjgfhj</marquee>
+        <marquee>Shahara Nest is here to support the community! Join us today!</marquee>
     </header>
 
     <div class="container">
@@ -237,14 +264,14 @@
             </div>
 
             <div class="donate-box" id="donate-box">
-                <p>Send your donation to: <strong>01580878557</strong></p>
-                <p>Please send a message to this number with the transaction number and amount.</p>
+                <p id="donate-info">Send your donation to: <strong>01580878557</strong></p>
+                <p>Payment system gateway will available soon!Please send a message to this number with the transaction number and amount.</p>
             </div>
         </section>
 
         <!-- Owner Information Section -->
         <section id="owner-info">
-            <h3>Owner Information</h3>
+            <h3>About Our Team</h3>
             <div class="owner-card">
                 <h4>Nahid Al-Asad Pias</h4>
                 <p><strong>Position:</strong> Founder and CEO</p>
@@ -277,12 +304,41 @@
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h3>Frequently Asked Questions (FAQ)</h3>
+            <div class="faq">
+                <h4>What is Shahara Nest?</h4>
+                <p>Shahara Nest is a platform dedicated to providing assistance to those in need, fostering humanity, and building a better tomorrow.</p>
+
+                <h4>How can I seek help?</h4>
+                <p>You can seek help by filling out the form in the "Do you need help by an agent?" section or by contacting one of our agents listed there.</p>
+
+                <h4>How can I donate?</h4>
+                <p>To donate, please use the "Want to donate us?" section and follow the instructions to send your contribution via Bkash or Nagad.</p>
+
+                <h4>Is my donation secure?</h4>
+                <p>Yes, we ensure transparency and security for all donations. Please retain your transaction number for reference.</p>
+
+                <h4>Who manages Shahara Nest?</h4>
+                <p>Shahara Nest is managed by a dedicated team including our Founder Nahid Al-Asad Pias and other key members as mentioned in the "Owner Information" section.</p>
+
+                <h4>Can I volunteer for Shahara Nest?</h4>
+                <p>Yes, we welcome volunteers! Please contact us through the form or our social media links for more details.</p>
+
+                <h4>What types of help do you provide?</h4>
+                <p>We provide assistance in financial, medical, legal, educational, and other areas based on individual needs.</p>
+
+                <h4>How can I contact Shahara Nest?</h4>
+                <p>You can contact us via the form, call our agents directly, or reach out to us on social media platforms.</p>
+            </div>
+        </section>
+
         <!-- Credit Section -->
         <section id="credit">
-            <div class="credit-card">
-                <h4>Website Developed By:</h4>
-                <p><strong>Team Shahara Nest</strong></p>
-                <p>We believe in a better tomorrow for all.</p>
+            <div class="credit-card" style="text-align: center;">
+                <h4>Website Developed By</h4>
+              <p><strong> Nahid Al-Asad Pias </strong></p>                <p>We believe in a better tomorrow for all.</p>
             </div>
         </section>
     </div>
@@ -299,14 +355,16 @@
                 agentBox.style.display = 'block';
                 formBox.style.display = 'none';
             } else if (option === 'no') {
-                agentBox.style.display = 'none';
                 formBox.style.display = 'block';
+                agentBox.style.display = 'none';
             }
         }
 
         function showDonateOptions(option) {
             var donateBox = document.getElementById('donate-box');
-            donateBox.style.display = 'block';
+            if (option === 'bkash' || option === 'nagad') {
+                donateBox.style.display = 'block';
+            }
         }
     </script>
 </body>
